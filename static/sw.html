@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1, user-scalable=no">
+<title>Document</title>
+<link rel="stylesheet" href="index.css">
+<link rel="shortcut icon" href="#"/>
+</head>
+<style>
+*{
+  padding: 0;
+  margin: 0;
+}
+.box{
+  width: 100vw;
+  height: 100vh;
+  background: #282c34;
+}
+.info{
+  padding-top: 10vh;
+  font-size: 24px;
+  text-align: center;
+  color: #fff;
+}
+.img{
+  padding-top: 10vh;
+}
+</style>
+<body>
+  <div class="operation">
+    <button id="push">推送</button>
+    <button id="offline">断网</button>
+    <button id="online">上网</button>
+    <button id="reload">刷新</button>
+    <div id="text"></div>
+  </div>
+	<div class="box">
+    <div class="info">hello world</div>
+    <div class="img"><img src="./logo.svg" alt=""></div>
+  </div>
+  <script src="./render.js"></script>
+  <script src="./push.js"></script>
+  <script>
+    if(navigator.serviceWorker != null){
+      navigator.serviceWorker.register('./sw.js?' + Date.now(), { scope: '/' })
+        .then(function(registration){
+          console.log('registered success', registration.scope)
+          // 注销service-worker
+          // registration && registration.unregister()
+        }).catch(function(error){
+          console.log('registered error', error)
+        })
+    }
+  </script>
+</body>
+</html>
